@@ -1,0 +1,11 @@
+{
+	"name": "pinoyframework/pinoyframework",
+	"description": "Pinoy Framework.",
+	"keywords": ["framework", "Pinoy Framework"],
+	"license": "MIT",
+	"require": {
+	},
+	"autoload": {
+	},
+	"minimum-stability": "stable"
+}
