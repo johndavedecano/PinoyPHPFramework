@@ -14,7 +14,7 @@ $classLoader->register();
 /*
 Autoload Third Party Packages
 */
-require VENDOR_PATH.'/autoload.php';
+require_once VENDOR_PATH.'/autoload.php';
 
 /*
 Initialize Application
@@ -22,8 +22,19 @@ Initialize Application
 $application = new Framework\Application;
 
 /*
-Register Routes
+Register Autoload Maps
 */
-include_once CONFIG_PATH.'/routes.php';
+$maps = require_once(BASE_PATH.'/starts/maps.php');
+$application->maps($maps);
 
-$application->boot();
+/*
+Register Modules
+*/
+$modules = require_once(BASE_PATH.'/starts/modules.php');
+$application->modules($modules);
+
+/*
+Route Function
+*/
+$router = require_once CONFIG_PATH.'/routes.php';
+$application->boot($router);

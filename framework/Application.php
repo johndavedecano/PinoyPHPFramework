@@ -2,21 +2,66 @@
 namespace Framework;
 class Application 
 {
-	public function __construct(){}
-	public function __clone(){}
-	public function __wakeup(){}
+	private static $objects = array();
 
-	public function boot()
+	private static $configs = array();
+
+	public function __construct()
 	{
 		
 	}
 
-	public static function getInstance()
+	public function __clone()
 	{
-	    $cls = get_called_class(); // late-static-bound class name
-	    if (!isset(self::$instances[$cls])) {
-	        self::$instances[$cls] = new static;
-	    }
-	    return self::$instances[$cls];
+
+	}
+
+	public function __wakeup()
+	{
+
+	}
+
+	public function before($function)
+	{
+		if(is_callable($function))
+			$function();
+	}
+
+	public function maps($maps = array())
+	{
+		
+		foreach($maps as $map)
+		{
+			if(is_dir($map) && file_exists($map))
+			{
+				spl_autoload_register(function($classname) use ($map){
+					require_once $map.'/'.$classname.'.php';
+				});				
+			}
+		}
+	}
+
+	public function modules($modules = array())
+	{
+		foreach($modules as $module)
+		{
+			if(is_dir($module) && file_exists($module))
+			{
+				spl_autoload_register(function($classname) use ($module){
+					require_once MODULES_PATH.'/'.$module.'/controllers/'.$classname.'.php';
+				});				
+			}
+		}
+	}
+
+	public function boot(Router $route)
+	{
+		$route->initialize();
+	}
+
+	public function after($function)
+	{
+		if(is_callable($function))
+			$function();
 	}
 }
