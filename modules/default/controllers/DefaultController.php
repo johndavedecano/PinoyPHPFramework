@@ -1,8 +1,18 @@
 <?php
 class DefaultController extends Framework\Controller
 {
-	public function main($name)
+	public function main()
 	{
-		echo $name;
+		echo 'Main Controller';
 	}
-}
+    
+    public function test($name)
+    {
+        echo $name;
+    }
+    
+    public function 404(){
+        echo 'Fropm Dave';   
+    }
+    
+ }

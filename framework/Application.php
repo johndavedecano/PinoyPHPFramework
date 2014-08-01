@@ -6,20 +6,9 @@ class Application
 
 	private static $configs = array();
 
-	public function __construct()
-	{
-		
-	}
-
-	public function __clone()
-	{
-
-	}
-
-	public function __wakeup()
-	{
-
-	}
+	public function __construct(){}
+	public function __clone(){}
+	public function __wakeup(){}
 
 	public function before($function)
 	{
@@ -56,8 +45,44 @@ class Application
 
 	public function boot(Router $route)
 	{
-		$route->initialize();
+		$route = $route->initialize();
+        if(is_null($route))
+        {
+            die("<h1>404 Page Not Found</h1>");
+            header("HTTP/1.0 404 Not Found"); 
+            exit();
+        }else{
+            $this->resolveModule($route);
+        }
 	}
+    
+    private function resolveModule($route)
+    {
+        $paths = explode(".",$route[2]);
+        $file = MODULES_PATH.DS.$paths[0].DS.'controllers'.DS.$paths[1].'.php';
+        if(file_exists($file))
+        {
+            require_once($file);
+            $this->callModule($route);
+        }else{
+            throw new \Exception("Module was not resolved.");
+        }
+        
+    }
+    
+    private function callModule($route)
+    {
+        $module = explode(".",$route[2]);
+        $class = new $module[1];
+        $method = $module[2];
+        if(is_array($route['arguments']))
+        {
+            call_user_func_array(array($class,$method),$route['arguments']);
+        }else{
+            call_user_func_array(array($class,$method));
+        }
+        return;
+    }
 
 	public function after($function)
 	{

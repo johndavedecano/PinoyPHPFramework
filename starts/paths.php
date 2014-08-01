@@ -6,28 +6,28 @@ define('DS', DIRECTORY_SEPARATOR);
 /*
 	
 */
-define('BASE_PATH', __DIR__.'/..');
+define('BASE_PATH', dirname(dirname(__FILE__)));
 /*
 	
 */
-define('MODULES_PATH', __DIR__.'/../modules');
+define('MODULES_PATH', BASE_PATH.DS.'modules');
 
 /*
 	
 */
-define('MODELS_PATH', __DIR__.'/../models');
+define('MODELS_PATH', BASE_PATH.DS.'models');
 
 /*
 	
 */
-define('CONFIG_PATH', __DIR__.'/../config');
+define('CONFIG_PATH', BASE_PATH.DS.'config');
 
 /*
 	
 */
-define('CACHE_PATH', __DIR__.'/../cache');
+define('CACHE_PATH', BASE_PATH.DS.'cache');
 
 /*
 	
 */
-define('VENDOR_PATH', __DIR__.'/../vendor');
+define('VENDOR_PATH', BASE_PATH.DS.'vendor');

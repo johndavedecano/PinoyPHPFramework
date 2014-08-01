@@ -21,7 +21,12 @@ class Request
 		else
 			return null;
 	}
-
+    
+    public static function method()
+    {
+		$vars = self::getVars();
+		return $vars['REQUEST_METHOD'];
+    }
 	public static function uri()
 	{
 		$vars = self::getVars();
