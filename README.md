@@ -52,7 +52,8 @@ Simply add a new Route object. Then add some arguments
 
 Route($method,$pattern,$namespace,$action);
 
-1.$method - POST,GET,PUT etc.
+1.$method - POST,GET,PUT etc. 
+
 2.$pattern - The url pattern e.g /about
 
 ## Available patterns
