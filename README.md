@@ -1,6 +1,6 @@
 # PinoyPHPFramework
 
-Simpleng php framework lang.
+A modular based mvc framework.
 
 # Requirements
 
@@ -24,8 +24,43 @@ Simpleng php framework lang.
 	</Directory>
 </VirtualHost
 ```
-2. Open your command line tool go to the project folder and hit composer update.
+2. Open your command line tool go to the project folder and hit composer update. It will create a folder named vendor.
 
 3. Restart your apache
 
 4. Then visit e.g http://framework
+
+# Routing
+
+The routes configurations are located at /config/routes.php
+
+```javascript
+<?php
+use Framework\Route;
+
+$route = new Framework\Router;
+$route->add(array(
+    new Route('GET', '/test', 'Main\Controllers\DefaultController', 'main'),
+    new Route('GET', '/test/alp:dave', 'Main\Controllers\DefaultController', 'test')
+));
+
+return $route;
+```
+
+Simply add a new Route object. Then add some arguments
+
+Route($method,$pattern,$namespace,$action);
+
+1.$method - POST,GET,PUT etc.
+2.$pattern - The url pattern e.g /about
+
+## Available patterns
+
+```javascript
+    'alp' - Alphabet
+    'num' - Numeric
+    'aln' - Alpha Numeric
+    'rgx' - Regular Expressions
+```
+3. $namespace - The class namespace e.g Main\Controllers\DefaultController located at modules/main/controllers/DefaultControler.php 
+4. $action - The controllers method				
