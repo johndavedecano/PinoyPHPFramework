@@ -1,14 +1,8 @@
 <?php
 namespace Framework;
 
-class Request
+class Request implements RequestInterface
 {
-
-	private function __construct()
-	{
-
-	}
-
 	public static function getVars()
 	{
 		return $_SERVER;

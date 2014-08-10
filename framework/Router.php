@@ -3,62 +3,116 @@ namespace Framework;
 
 use Framework\Request;
 
-class Router
+class Router implements  RouterInterface
 {
 	private $collections = array();
     
     private $methods = array('GET','POST','PUT','OPTION','DELETE','PATCH');
 
-	public function __construct(){}
+    private $request_method = 'GET';
 
-	public function __wakeup(){}
+    /**
+     * @param string $request_method
+     */
+    public function setRequestMethod($request_method)
+    {
+        $this->request_method = $request_method;
+    }
 
-	public function __clone(){}
+    /**
+     * @return string
+     */
+    public function getRequestMethod()
+    {
+        return $this->request_method;
+    }
 
-	public function add($methods = array(),$pattern = '/' ,$callback = null)
+    private $match = null;
+
+    private $path = array();
+
+    public function setPath($path)
+    {
+        $this->path = array_values(array_filter(explode("/",$path)));
+
+        return $this;
+    }
+
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+	public function add($routes = array())
 	{
-		foreach($methods as $method)
+        foreach($routes as $route)
         {
-            if(in_array($method,$this->methods))
-            {
-                array_push($this->collections,array($method,$pattern,$callback,'matches' => array(),'arguments' => array()));
-            }
+            $this->addCollection($route);
         }
-        return;
+
+        return $this;
 	}
-    
+
+    /**
+     * @param array $methods
+     */
+    public function setMethods($methods)
+    {
+        $this->methods = $methods;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMethods()
+    {
+        return $this->methods;
+    }
+
+
     public function getCollections()
     {
         return $this->collections;
     }
 
-	public function initialize()
+    public function addCollection(RouteInterface $route)
+    {
+        array_push($this->collections,$route);
+
+        return;
+    }
+
+	public function initialize(RequestInterface $request)
 	{
-		 $collections = $this->getCollections();
-         
-         $match = null;
-         
-         foreach($collections as $route)
+         $this->setPath($request->path());
+
+         $this->setRequestMethod($request->method());
+
+         foreach($this->getCollections() as $route)
          {
-            if(is_array($this->match($route)))
+            if(is_object($this->match = $this->match($route)))
             {
-                $match = $this->match($route);
                 break;
             }
          }
-         
-         return $match;
+
+         return $this->match;
 	}
-    
-    public function match($route = array())
-    {   
-        $path = array_values(array_filter(explode("/",Request::path())));
-        $patterns = array_values(explode("/",ltrim(rtrim($route[1],"/"),"/")));
-        
-        if(empty($path) && $route[1] == "/"){
-            return $route;
-        }else{
-            if(count($path) == count($patterns))
+
+    public function match(RouteInterface $route)
+    {
+        $patterns = $route->getPatternArray();
+
+        if($this->getRequestMethod() == $route->getMethod())
+        {
+            $path = $this->getPath();
+
+            if(empty($path) && $route->getPattern() == "/")
+            {
+                return $route;
+            }
+
+            if(count($this->getPath()) == count($patterns))
             {
                 $counter = 0;
                 foreach($patterns as $k => $v)
@@ -70,53 +124,52 @@ class Router
                         {
                             case 'alp':
                                 if(ctype_alpha($path[$counter])){
-                                    $route['matches'][] = $path[$counter];
-                                    $route['arguments'][] = $path[$counter];
+                                    $route->addMatch($path[$counter]);
+                                    $route->addArgument($path[$counter]);
                                 }
-                            break;
-                            
+                                break;
+
                             case 'num':
                                 if(ctype_digit($path[$counter])){
-                                    $route['matches'][] = $path[$counter];
-                                    $route['arguments'][] = $path[$counter];
+                                    $route->addMatch($path[$counter]);
+                                    $route->addArgument($path[$counter]);
                                 }
-                            break;
-                            
+                                break;
+
                             case 'aln':
                                 if(ctype_alnum($path[$counter])){
-                                    $route['matches'][] = $path[$counter];
-                                    $route['arguments'][] = $path[$counter];
+                                    $route->addMatch($path[$counter]);
+                                    $route->addArgument($path[$counter]);
                                 }
-                            break;
-                            
+                                break;
+
                             case 'rgx':
                                 if(preg_match("/".$vars[1]."/",$path[$counter])){
-                                    $route['matches'][] = $path[$counter];
-                                    $route['arguments'][] = $path[$counter];
+                                    $route->addMatch($path[$counter]);
+                                    $route->addArgument($path[$counter]);
                                 }
-                            break;
-                        } 
-                        
-                    }else{
+                                break;
+                        }
+
+                    } else {
+
                         if($path[$k] == $patterns[$k])
                         {
-                            $route['matches'][] = $v;
+                            $route->addMatch($path[$counter]);
+
                         }
                     }
+
                     $counter++;
                 }
-                
-                return (count($patterns) != count($route['matches']))?null:$route;
+
+                return (count($patterns) == count($route->getMatches())) ? $route : null;
+
             }
-            
-            return null;
-        } 
-    }
-    
-    private function hasColon($string)
-    {
-        $vars = explode(":",$string);
-        return $vars;
+
+        }
+
+        return null;
     }
 
 }

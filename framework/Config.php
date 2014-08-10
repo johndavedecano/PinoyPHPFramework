@@ -50,9 +50,12 @@ class Config
     private static function find($file)
     {
     	if(!file_exists(static::$base.'/'.$file.'.php'))
-    		return null
-    	else
-    		return true
+        {
+            return null;
+        }
+        
+        return false;
+    		
     }
 
 }

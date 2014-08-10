@@ -1,6 +1,10 @@
 <?php
+use Framework\Route;
+
 $route = new Framework\Router;
-$route->add(array('GET'),'/','default.DefaultController.main');
-$route->add(array('GET'),'/alp:name','default.DefaultController.test');
-$route->add(array('GET'),'/dave','default.DefaultController.dave');
+$route->add(array(
+    new Route('GET', '/test', 'Main\Controllers\DefaultController', 'main'),
+    new Route('GET', '/test/alp:dave', 'Main\Controllers\DefaultController', 'test')
+));
+
 return $route;

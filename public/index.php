@@ -21,20 +21,15 @@ Initialize Application
 */
 $application = new Framework\Application;
 
-/*
-Register Autoload Maps
-*/
-$maps = require_once(BASE_PATH.'/starts/maps.php');
-$application->maps($maps);
 
 /*
 Register Modules
 */
-$modules = require_once(BASE_PATH.'/starts/modules.php');
-$application->modules($modules);
+$application->modules(new \Framework\ApplicationModuleMapper());
+
 
 /*
 Route Function
 */
 $router = require_once CONFIG_PATH.'/routes.php';
-$application->boot($router);
+$application->boot($router,new \Framework\Response,new \Framework\ApplicationResolver, new \Framework\Request);
