@@ -29,6 +29,7 @@ A modular based mvc framework.
 3. Restart your apache
 
 4. Then visit e.g http://framework
+5. Optionally if you do not want to use apache, using your cmd, go to the public folder and run php -S 127.0.0.1:8080
 
 # Routing
 
