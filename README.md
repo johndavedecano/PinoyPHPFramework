@@ -65,4 +65,30 @@ Route($method,$pattern,$namespace,$action);
     'rgx' - Regular Expressions
 ```
 3. $namespace - The class namespace e.g Main\Controllers\DefaultController located at modules/main/controllers/DefaultControler.php 
-4. $action - The controllers method				
+4. $action - The controllers method	
+
+# Modules 
+
+Modules 
+
+Contains views, repositories, forms, models and controllers.
+
+## Views
+
+Views are the display layer of your module which is the responsible for presentation on the browser. It is consists of html files css and javascripts just like an ordinary web pages.
+
+## Models
+
+Models folder is where you put all your model files. The model files are the representation of your table which consists of attributes which are the table columns and some getters and setters.
+
+## Repositiries
+
+Database logic classes. Responsible for saving, updating, deleting etc.
+
+## Forms
+
+This is where you store all your form specific validation classes
+
+## 
+
+Controllers are responsible for receiving a requests and passing, rendering the views and sending responses .
