@@ -20,5 +20,10 @@ class DefaultController extends Controller
     {
         echo 'Fropm Dave';   
     }
+
+    public function rose()
+    {
+        echo 'sdgasgas';
+    }
     
  }

@@ -37,7 +37,7 @@ class Application implements ApplicationInterface
         } else {
 
             $response->send404();
-            
+
         }
 	}
 

@@ -1,6 +1,6 @@
 <?php
 namespace Framework;
-class Controller
+abstract class Controller
 {
-
+    protected $template = null;
 }
