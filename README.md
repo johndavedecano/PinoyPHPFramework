@@ -81,7 +81,7 @@ Views are the display layer of your module which is the responsible for presenta
 
 Models folder is where you put all your model files. The model files are the representation of your table which consists of attributes which are the table columns and some getters and setters.
 
-## Repositiries
+## Repositories
 
 Database logic classes. Responsible for saving, updating, deleting etc.
 
