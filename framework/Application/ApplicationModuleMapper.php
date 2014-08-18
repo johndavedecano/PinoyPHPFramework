@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace Framework;
+namespace Framework\Application;
 
 
 class ApplicationModuleMapper implements ApplicationMapperInterface{

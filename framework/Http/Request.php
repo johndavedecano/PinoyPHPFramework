@@ -1,5 +1,5 @@
 <?php
-namespace Framework;
+namespace Framework\Http;
 
 class Request implements RequestInterface
 {

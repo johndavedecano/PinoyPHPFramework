@@ -1,7 +1,7 @@
 <?php
-use Framework\Route;
+use Framework\Router\Route;
 
-$route = new Framework\Router;
+$route = new Framework\Router\Router;
 $route->add(array(
     new Route('GET', '/', 'Main\Controllers\DefaultController', 'main'),
     new Route('GET', '/test', 'Main\Controllers\DefaultController', 'main'),

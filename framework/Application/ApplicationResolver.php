@@ -7,8 +7,9 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace Framework;
+namespace Framework\Application;
 
+use Framework\Router\RouteInterface;
 
 class ApplicationResolver implements ApplicationResolverInterface {
 

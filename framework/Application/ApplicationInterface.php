@@ -7,13 +7,20 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace Framework;
+namespace Framework\Application;
 
+use Framework\Http\RequestInterface;
+use Framework\Http\ResponseInterface;
+use Framework\Router\RouterInterface;
 
-interface ApplicationInterface {
+interface ApplicationInterface
+{
+
     public function before(\Closure $function);
-    public function maps(ApplicationClassMapper $mapper);
+
     public function modules(ApplicationModuleMapper $mapper);
+
     public function boot(RouterInterface $router,ResponseInterface $response,ApplicationResolverInterface $resolver, RequestInterface $request);
+
     public function after(\Closure $function);
 }

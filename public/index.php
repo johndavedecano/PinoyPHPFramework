@@ -19,17 +19,15 @@ require_once VENDOR_PATH.'/autoload.php';
 /*
 Initialize Application
 */
-$application = new Framework\Application;
-
+$application = new \Framework\Application\Application;
 
 /*
 Register Modules
 */
-$application->modules(new \Framework\ApplicationModuleMapper());
-
+$application->modules(new \Framework\Application\ApplicationModuleMapper());
 
 /*
 Route Function
 */
 $router = require_once CONFIG_PATH.'/routes.php';
-$application->boot($router,new \Framework\Response,new \Framework\ApplicationResolver, new \Framework\Request);
+$application->boot($router,new \Framework\Http\Response,new \Framework\Application\ApplicationResolver, new \Framework\Http\Request);

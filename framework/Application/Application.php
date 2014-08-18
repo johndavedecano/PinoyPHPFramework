@@ -1,5 +1,10 @@
 <?php
-namespace Framework;
+namespace Framework\Application;
+
+use Framework\Http\RequestInterface;
+use Framework\Http\ResponseInterface;
+use Framework\Router\RouteInterface;
+use Framework\Router\RouterInterface;
 
 class Application implements ApplicationInterface
 {
@@ -8,13 +13,6 @@ class Application implements ApplicationInterface
 	{
 		if(is_callable($function))
 			$function();
-	}
-
-	public function maps(ApplicationClassMapper $mapper)
-	{
-        $mapper->map();
-
-        return $this;
 	}
 
 	public function modules(ApplicationModuleMapper $mapper)
@@ -32,13 +30,11 @@ class Application implements ApplicationInterface
 
             $resolver->setRoute($route);
 
-            $resolver->call();
-
-        } else {
-
-            $response->send404();
+            return $resolver->call();
 
         }
+
+        return $response->send404();
 	}
 
 	public function after(\Closure $function)

@@ -1,7 +1,7 @@
 <?php
-namespace Framework;
+namespace Framework\Router;
 
-use Framework\Request;
+use Framework\Http\RequestInterface;
 
 class Router implements  RouterInterface
 {
@@ -33,7 +33,7 @@ class Router implements  RouterInterface
 
     public function setPath($path)
     {
-        $this->path = array_values(array_filter(explode("/",$path)));
+        $this->path = array_values(array_filter(explode("/",str_replace("index.php","",$path))));
 
         return $this;
     }
@@ -164,12 +164,9 @@ class Router implements  RouterInterface
                 }
 
                 return (count($patterns) == count($route->getMatches())) ? $route : null;
-
             }
-
         }
 
         return null;
     }
-
 }

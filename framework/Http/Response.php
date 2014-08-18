@@ -1,5 +1,7 @@
 <?php
-namespace Framework;
+namespace Framework\Http;
+
+
 class Response implements ResponseInterface
 {
 

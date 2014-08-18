@@ -7,7 +7,9 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace Framework;
+namespace Framework\Router;
+
+use Framework\Http\RequestInterface;
 
 interface RouterInterface {
 
