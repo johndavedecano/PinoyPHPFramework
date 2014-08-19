@@ -5,16 +5,19 @@ Initialize Paths
 include __DIR__.'/../starts/paths.php';
 
 /*
-Autoload Framework Classes
-*/
-require BASE_PATH.'/starts/loader.php';
-$classLoader = new SplClassLoader('Framework',BASE_PATH);
-$classLoader->register();
-
-/*
 Autoload Third Party Packages
 */
 require_once VENDOR_PATH.'/autoload.php';
+
+/**
+ * Setup and Detect the Environment
+ */
+$environments = require_once CONFIG_PATH.'/environments.php';
+$environment = new \Framework\Environment\Environment($environments);
+$environment->detect($_SERVER['SERVER_NAME']);
+
+define('ENVIRONMENT', $environment->get());
+
 
 /*
 Initialize Application

@@ -1,0 +1,4 @@
+suites:
+    framework_suite:
+        src_path:  core
+        spec_path: tests
