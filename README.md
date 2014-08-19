@@ -85,10 +85,10 @@ Models folder is where you put all your model files. The model files are the rep
 
 Database logic classes. Responsible for saving, updating, deleting etc.
 
-## Forms
+## Validators
 
 This is where you store all your form specific validation classes
 
-## 
+## Controllers
 
 Controllers are responsible for receiving a requests and passing, rendering the views and sending responses .
