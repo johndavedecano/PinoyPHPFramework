@@ -15,7 +15,7 @@ class ApplicationModuleMapper implements ApplicationMapperInterface{
     public function map()
     {
         spl_autoload_register(function($classname) {
-            require_once MODULES_PATH.DS.$classname.'.php';
+            require_once MODULES_PATH.DS.str_replace('\\','/',$classname).'.php';
         });
     }
 
