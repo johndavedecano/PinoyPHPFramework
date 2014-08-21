@@ -15,8 +15,14 @@ require_once VENDOR_PATH.'/autoload.php';
 $environments = require_once CONFIG_PATH.'/environments.php';
 $environment = new \Framework\Environment\Environment($environments);
 $environment->detect($_SERVER['SERVER_NAME']);
-
+/**
+ *
+ */
 define('ENVIRONMENT', $environment->get());
+/**
+ * DEBUG MODE ON AND OFF
+ */
+define('DEBUG_MODE', true);
 
 
 /*

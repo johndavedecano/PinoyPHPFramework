@@ -34,7 +34,16 @@ class Application implements ApplicationInterface
 
         }
 
-        return $response->send404();
+        $response->send404();
+
+        if(DEBUG_MODE == true) {
+            $error = new ApplicationErrorFactory;
+            $error->make(new ApplicationException, 'Page not found.');
+            exit();
+        }
+
+        exit('<h1>Page Not Found</h1><p>The page that is trying to reach is not available.</p><em>Response Code: 404</em>');
+
 	}
 
 	public function after(\Closure $function)

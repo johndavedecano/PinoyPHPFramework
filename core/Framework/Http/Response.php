@@ -79,7 +79,6 @@ class Response implements ResponseInterface
     public function send404()
     {
         header('HTTP/1.0 404 Not Found');
-        exit('<h1>Page Not Found</h1><p>The page that is trying to reach is not available.</p><em>Response Code: 404</em>');
     }
 
 

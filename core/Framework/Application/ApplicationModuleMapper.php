@@ -15,7 +15,14 @@ class ApplicationModuleMapper implements ApplicationMapperInterface{
     public function map()
     {
         spl_autoload_register(function($classname) {
-            require_once MODULES_PATH.DS.str_replace('\\','/',$classname).'.php';
+
+            $module = MODULES_PATH.DS.str_replace('\\','/',$classname).'.php';
+
+            if(!file_exists($module)) {
+                $error = new ApplicationErrorFactory;
+                $error->make(new ApplicationException, 'Module was not found');
+            }
+            require_once $module;
         });
     }
 

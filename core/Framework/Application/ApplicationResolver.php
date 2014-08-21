@@ -14,7 +14,6 @@ use Framework\Router\RouteInterface;
 class ApplicationResolver implements ApplicationResolverInterface {
 
     protected $route;
-
     /**
      * @param mixed $route
      */
@@ -46,8 +45,8 @@ class ApplicationResolver implements ApplicationResolverInterface {
             call_user_func_array(array($class,$this->route->getAction()),$this->route->getArguments());
 
         } else {
-
-            throw new \Exception("Module was not found");
+            $error = new ApplicationErrorFactory;
+            $error->make(new ApplicationException, 'Module was not found');
         }
     }
 

@@ -4,6 +4,7 @@
 	"keywords": ["framework", "Pinoy Framework"],
 	"license": "MIT",
 	"require": {
+        "filp/whoops": "1.*"
 	},
     "require-dev": {
         "phpspec/phpspec": "~2.0"
